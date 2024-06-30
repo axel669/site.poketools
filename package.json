@@ -7,7 +7,8 @@
   "scripts": {
     "build/dev": "rollup -c config/rollup.dev.js",
     "build/prod": "rollup -c config/rollup.production.js",
-    "site/start": "wrangler pages dev build --port=45067"
+    "site/start": "wrangler pages dev build --port=45067",
+    "why": "echo why"
   },
   "author": "Axel",
   "license": "MIT",
