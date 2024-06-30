@@ -1,0 +1,35 @@
+{
+  "name": "svelte-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build/dev": "rollup -c config/rollup.dev.js",
+    "build/prod": "rollup -c config/rollup.production.js",
+    "site/start": "wrangler pages dev build --port=45067"
+  },
+  "author": "Axel",
+  "license": "MIT",
+  "devDependencies": {
+    "@axel669/asuid": "^0.2.1",
+    "@axel669/rollup-copy-static": "^0.1.2",
+    "@axel669/rollup-html-input": "^0.1.2",
+    "@axel669/zephyr": "0.4.4-beta.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.18.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-svelte": "^7.2.2",
+    "svelte": "^4.2.18"
+  },
+  "imports": {
+    "#dex": "./data/dex.json",
+    "#ability": "./data/ability.json",
+    "#move": "./data/move.json",
+    "#type-effect": "./data/type-effect.json"
+  },
+  "dependencies": {
+    "mingo": "^6.4.15"
+  }
+}
