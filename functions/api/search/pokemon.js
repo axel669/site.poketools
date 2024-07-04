@@ -1,4 +1,3 @@
-import { Query } from "mingo"
 import { Aggregator } from "mingo/aggregator"
 
 export const onRequestGet = async ({ request, data }) => {
@@ -23,8 +22,4 @@ export const onRequestPost = async ({ request, data }) => {
     return Response.json(
         agg.run(data.complete)
     )
-    // console.log(query)
-    // return Response.json(
-    //     new Query(query).find(data.dex).all()
-    // )
 }
