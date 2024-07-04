@@ -15,6 +15,7 @@ const abilityID = ability.reduce(idkey, {})
 const moveID = move.reduce(idkey, {})
 
 export const onRequest = async ({ next, data }) => {
+    console.time("construct")
     data.dex = dex
     data.ability = ability
     data.move = move
@@ -47,5 +48,6 @@ export const onRequest = async ({ next, data }) => {
             }
         }
     )
+    console.timeEnd("construct")
     return await next()
 }
