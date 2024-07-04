@@ -1,5 +1,8 @@
 compatibility_date = "24-07-03"
 
+name = "site-poketools"
+pages_build_output_dir = "site"
+
 [[d1_databases]]
 binding = "db"
 database_name = "d1-test"
