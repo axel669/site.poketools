@@ -2651,6 +2651,17 @@
           "friendship": true
         },
         "end": "persian@alolan"
+      },
+      {
+        "start": "meowth@alolan",
+        "cond": {
+          "level": 28,
+          "game": [
+            "lets-go-eevee",
+            "lets-go-pikachu"
+          ]
+        },
+        "end": "persian@alolan"
       }
     ]
   },
@@ -3327,7 +3338,16 @@
       {
         "start": "qwilfish@hisuian",
         "cond": {
-          "use": "Barb Barrage 20 times in Strong Style"
+          "use": "Barb Barrage",
+          "style": "strong",
+          "count": 20
+        },
+        "end": "overqwil"
+      },
+      {
+        "start": "qwilfish@hisuian",
+        "cond": {
+          "learn": "Barb Barrage"
         },
         "end": "overqwil"
       }
