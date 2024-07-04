@@ -1,8 +1,8 @@
-import dex from "#dex" assert { "type": "json" }
-import ability from "#ability" assert { "type": "json" }
-import move from "#move" assert { "type": "json" }
-import typeEffect from "#type-effect" assert { type: "json" }
-import evolution from "#evolution" assert { type: "json" }
+// import dex from "#dex" assert { "type": "json" }
+// import ability from "#ability" assert { "type": "json" }
+// import move from "#move" assert { "type": "json" }
+// import typeEffect from "#type-effect" assert { type: "json" }
+// import evolution from "#evolution" assert { type: "json" }
 import "mingo/init/system"
 
 const idkey = (ids, item) => {
@@ -10,12 +10,30 @@ const idkey = (ids, item) => {
     return ids
 }
 
-const dexID = dex.reduce(idkey, {})
-const abilityID = ability.reduce(idkey, {})
-const moveID = move.reduce(idkey, {})
+export const onRequest = async ({ next, data, env }) => {
+    const t = performance.now()
+    const row =
+        await env.db.prepare("select * from pokemon_data where gen = '9'").all()
+    const uintArray = Uint8Array.from(
+        atob(row.results[0].data),
+        (ch) => ch.charCodeAt(0)
+    )
+    const decom = new DecompressionStream("gzip")
+    const writer = decom.writable.getWriter()
+    writer.write(uintArray.buffer)
+    writer.close()
+    const {
+        dex,
+        ability,
+        move,
+        typeEffect,
+        evolution
+    } = await new Response(decom.readable).json()
 
-export const onRequest = async ({ next, data }) => {
-    console.time("construct")
+    const dexID = dex.reduce(idkey, {})
+    const abilityID = ability.reduce(idkey, {})
+    const moveID = move.reduce(idkey, {})
+
     data.dex = dex
     data.ability = ability
     data.move = move
@@ -48,6 +66,7 @@ export const onRequest = async ({ next, data }) => {
             }
         }
     )
-    console.timeEnd("construct")
+    const t2 = performance.now()
+    console.log(t2 - t)
     return await next()
 }

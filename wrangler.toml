@@ -1,0 +1,6 @@
+compatibility_date = "24-07-03"
+
+[[d1_databases]]
+binding = "db"
+database_name = "d1-test"
+database_id = "58d243fa-8e97-41cd-9053-f3169f54fad1"
