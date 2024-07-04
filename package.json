@@ -28,7 +28,8 @@
     "#dex": "./data/dex.json",
     "#ability": "./data/ability.json",
     "#move": "./data/move.json",
-    "#type-effect": "./data/type-effect.json"
+    "#type-effect": "./data/type-effect.json",
+    "#evolution": "./data/evolution.json"
   },
   "dependencies": {
     "mingo": "^6.4.15"

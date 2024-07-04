@@ -2,6 +2,7 @@ import dex from "#dex" assert { "type": "json" }
 import ability from "#ability" assert { "type": "json" }
 import move from "#move" assert { "type": "json" }
 import typeEffect from "#type-effect" assert { type: "json" }
+import evolution from "#evolution" assert { type: "json" }
 import "mingo/init/system"
 
 const idkey = (ids, item) => {
@@ -21,6 +22,7 @@ export const onRequest = async ({ next, data }) => {
     data.abilityID = abilityID
     data.moveID = moveID
     data.typeEffect = typeEffect
+    data.evolution = evolution
     data.complete = dex.map(
         pokemon => {
             const ab_normal = pokemon.ability.normal.map(
@@ -38,7 +40,10 @@ export const onRequest = async ({ next, data }) => {
                     hidden: ab_hidden,
                 },
                 moves,
-                typeEffect: typeEffect[typeKey]
+                typeEffect: typeEffect[typeKey],
+                evolution: evolution.find(
+                    evo => evo.family.includes(pokemon.id)
+                )
             }
         }
     )
