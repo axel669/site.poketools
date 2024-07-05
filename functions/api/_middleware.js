@@ -10,25 +10,38 @@ const idkey = (ids, item) => {
     return ids
 }
 
-export const onRequest = async ({ next, data, env }) => {
+const loadJSON = (req, env, file) => {
+    const url = new URL(req.url)
+    const target = `${url.origin}${file}`
+    return env.ASSETS.fetch(target).then(res => res.json())
+}
+
+export const onRequest = async ({ request, next, data, env }) => {
     const t = performance.now()
-    const row =
-        await env.db.prepare("select * from pokemon_data where gen = '9'").all()
-    const uintArray = Uint8Array.from(
-        atob(row.results[0].data),
-        (ch) => ch.charCodeAt(0)
-    )
-    const decom = new DecompressionStream("gzip")
-    const writer = decom.writable.getWriter()
-    writer.write(uintArray.buffer)
-    writer.close()
-    const {
-        dex,
-        ability,
-        move,
-        typeEffect,
-        evolution
-    } = await new Response(decom.readable).json()
+    // const row =
+    //     await env.db.prepare("select * from pokemon_data where gen = '9'").all()
+    // const uintArray = Uint8Array.from(
+    //     atob(row.results[0].data),
+    //     (ch) => ch.charCodeAt(0)
+    // )
+    // const decom = new DecompressionStream("gzip")
+    // const writer = decom.writable.getWriter()
+    // writer.write(uintArray.buffer)
+    // writer.close()
+    // const {
+    //     dex,
+    //     ability,
+    //     move,
+    //     typeEffect,
+    //     evolution
+    // } = await new Response(decom.readable).json()
+    const [ dex, ability, move, typeEffect, evolution ] = await Promise.all([
+        loadJSON(request, env, "/raw/gen9/dex.json"),
+        loadJSON(request, env, "/raw/gen9/ability.json"),
+        loadJSON(request, env, "/raw/gen9/move.json"),
+        loadJSON(request, env, "/raw/gen9/type-effect.json"),
+        loadJSON(request, env, "/raw/gen9/evolution.json"),
+    ])
 
     const dexID = dex.reduce(idkey, {})
     const abilityID = ability.reduce(idkey, {})
