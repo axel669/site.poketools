@@ -1,0 +1,3 @@
+/data/*
+    Content-Encoding: gzip
+    Content-Type: application/gzip
