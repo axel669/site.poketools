@@ -9,15 +9,6 @@
     ]
   },
   {
-    "name": "Aerilate",
-    "effect": "Aerilate causes all Normal-type attacking moves used by the Pokémon to become Flying-type, and increase in power by 20%.",
-    "desc": "Normal-type moves become Flying-type moves. The power of those moves is boosted a little.",
-    "id": "aerilate",
-    "searchTerms": [
-      "aerilate"
-    ]
-  },
-  {
     "name": "Aftermath",
     "effect": "If an attacker faints a Pokémon with Aftermath using a contact move, the attacker will lose 1⁄4 of their maximum HP.",
     "desc": "Damages the attacker if it knocks out the Pokémon with a move that makes direct contact.",
@@ -75,6 +66,26 @@
     ]
   },
   {
+    "name": "Arena Trap",
+    "effect": "Arena Trap prevents opponents from fleeing or switching out. Raised Pokémon are not affected. Raised Pokémon are any Flying types or those under the effects of Levitate, Magnet Rise or Telekinesis. Full details in glossary.",
+    "desc": "Prevents opposing Pokémon from fleeing from battle.",
+    "id": "arena-trap",
+    "searchTerms": [
+      "arena",
+      "trap"
+    ]
+  },
+  {
+    "name": "Armor Tail",
+    "effect": "Armor Tail prevents the opponent from using any moves that have priority, such as Quick Attack.",
+    "desc": "The mysterious tail covering the Pokémon's head makes opponents unable to use priority moves against the Pokémon or its allies.",
+    "id": "armor-tail",
+    "searchTerms": [
+      "armor",
+      "tail"
+    ]
+  },
+  {
     "name": "Aroma Veil",
     "effect": "Protects allies from attacks that limit their move choices.\n",
     "desc": "Protects the Pokémon and its allies from effects that prevent the use of moves.",
@@ -121,16 +132,6 @@
     "searchTerms": [
       "battle",
       "armor"
-    ]
-  },
-  {
-    "name": "Battle Bond",
-    "effect": "Battle Bond causes Greninja to transform into Ash-Greninja when it KOs an opponent.",
-    "desc": "When the Pokémon knocks out a target, its bond with its Trainer is strengthened, and its Attack, Sp. Atk, and Speed stats are boosted.",
-    "id": "battle-bond",
-    "searchTerms": [
-      "battle",
-      "bond"
     ]
   },
   {
@@ -381,16 +382,6 @@
     ]
   },
   {
-    "name": "Delta Stream",
-    "effect": "Delta Stream creates strong winds when the ability is activated (by Rayquaza Mega-Evolving).",
-    "desc": "The Pokémon changes the weather so that no moves are supereffective against the Flying type.",
-    "id": "delta-stream",
-    "searchTerms": [
-      "delta",
-      "stream"
-    ]
-  },
-  {
     "name": "Desolate Land",
     "effect": "Desolate Land creates extremely harsh sunlight when the ability is activated (by Groudon reverting to its Primal form).",
     "desc": "The Pokémon changes the weather to nullify Water-type attacks.",
@@ -407,6 +398,15 @@
     "id": "disguise",
     "searchTerms": [
       "disguise"
+    ]
+  },
+  {
+    "name": "Download",
+    "effect": "Download raises either the bearer's Attack or Special Attack by one stage when switching into battle, base on the opponent's defenses.",
+    "desc": "The Pokémon compares an opposing Pokémon's Defense and Sp. Def stats before raising its own Attack or Sp. Atk stat—whichever will be more effective.",
+    "id": "download",
+    "searchTerms": [
+      "download"
     ]
   },
   {
@@ -435,6 +435,16 @@
     "id": "drought",
     "searchTerms": [
       "drought"
+    ]
+  },
+  {
+    "name": "Dry Skin",
+    "effect": "Dry Skin causes several effects:\nWhen hit by a Water-type attack, instead of damage it heals 1⁄4 of this Pokémon's maximum HP.\nWhen hit by a Fire-type attack, it does 25% more damage.\nDuring bright sunshine the Pokémon loses 1⁄8 of its maximum HP each turn.\nDuring rain the Pokémon recovers 1⁄8 of its maximum HP each turn.\n",
+    "desc": "Restores the Pokémon's HP in rain or when it is hit by Water-type moves. Reduces HP in harsh sunlight, and increases the damage received from Fire-type moves.",
+    "id": "dry-skin",
+    "searchTerms": [
+      "dry",
+      "skin"
     ]
   },
   {
@@ -542,6 +552,15 @@
     "id": "fluffy",
     "searchTerms": [
       "fluffy"
+    ]
+  },
+  {
+    "name": "Forewarn",
+    "effect": "Determines what moves a foe has.\n",
+    "desc": "When it enters a battle, the Pokémon can tell one of the moves an opposing Pokémon has.",
+    "id": "forewarn",
+    "searchTerms": [
+      "forewarn"
     ]
   },
   {
@@ -755,6 +774,16 @@
     "id": "hospitality",
     "searchTerms": [
       "hospitality"
+    ]
+  },
+  {
+    "name": "Huge Power",
+    "effect": "Raises the Pokémon's Attack stat.",
+    "desc": "Doubles the Pokémon's Attack stat.",
+    "id": "huge-power",
+    "searchTerms": [
+      "huge",
+      "power"
     ]
   },
   {
@@ -1054,6 +1083,16 @@
     ]
   },
   {
+    "name": "Magic Guard",
+    "effect": "Magic Guard protects the Pokémon from indirect damage, including:\nDamage from the Poison status condition\nDamage from a Burn (though the Attack drop still occurs)\nDamage from Leech Seed or Curse\nWeather damage (hail or sandstorm)\nRecoil damage (e.g. from Head Charge)\nCrash damage from Jump Kick or High Jump Kick\nDamage from Spikes or Stealth Rocks when switching in (Toxic Spikes still poisons the Pokémon but they will not lose HP)\nHP loss from Life Orb (though the move boosts still occur)\nIt does not prevent damage from confusion, trapping moves (e.g. Bind) or Struggle.ChangesIn Generation 4 a Pokémon with Magic Guard cannot be poisoned from Toxic Spikes, nor become fully immobile through paralysis (though the Speed drop still occurs).",
+    "desc": "The Pokémon only takes damage from attacks.",
+    "id": "magic-guard",
+    "searchTerms": [
+      "magic",
+      "guard"
+    ]
+  },
+  {
     "name": "Magician",
     "effect": "The Pokémon steals the held item of a Pokémon it hits with a move.\n",
     "desc": "The Pokémon steals the held item from any target it hits with a move.",
@@ -1233,6 +1272,16 @@
     "id": "neuroforce",
     "searchTerms": [
       "neuroforce"
+    ]
+  },
+  {
+    "name": "Neutralizing Gas",
+    "effect": "Neutralizes abilities of all Pokémon in battle.",
+    "desc": "While the Pokémon is in the battle, the effects of all other Pokémon's Abilities will be nullified or will not be triggered.",
+    "id": "neutralizing-gas",
+    "searchTerms": [
+      "neutralizing",
+      "gas"
     ]
   },
   {
@@ -1515,6 +1564,16 @@
     ]
   },
   {
+    "name": "Queenly Majesty",
+    "effect": "Prevents use of priority moves.",
+    "desc": "The Pokémon's majesty pressures opponents and makes them unable to use priority moves against the Pokémon or its allies.",
+    "id": "queenly-majesty",
+    "searchTerms": [
+      "queenly",
+      "majesty"
+    ]
+  },
+  {
     "name": "Quick Draw",
     "effect": "\n",
     "desc": "Enables the Pokémon to move first occasionally.",
@@ -1569,15 +1628,6 @@
     "id": "reckless",
     "searchTerms": [
       "reckless"
-    ]
-  },
-  {
-    "name": "Refrigerate",
-    "effect": "Refrigerate causes all Normal-type attacking moves used by the Pokémon to become Ice-type, and increase in power by 20%.",
-    "desc": "Normal-type moves become Ice-type moves. The power of those moves is boosted a little.",
-    "id": "refrigerate",
-    "searchTerms": [
-      "refrigerate"
     ]
   },
   {
@@ -1816,6 +1866,15 @@
     ]
   },
   {
+    "name": "Simple",
+    "effect": "The Simple ability doubles the number of stages of all stat changes. Stats can be raised to a maximum of +6 stages each, or lowered to a minimum of -6 stages each.For example, using Swords Dance would increase the Pokémon's attack by 4 stages instead of the usual 2. If Tail Whip was targeted at a Pokémon with Simple, its Defense would drop 2 stages instead of 1.The move Simple Beam can change a Pokémon's ability to Simple.",
+    "desc": "Doubles the effects of the Pokémon's stat changes.",
+    "id": "simple",
+    "searchTerms": [
+      "simple"
+    ]
+  },
+  {
     "name": "Skill Link",
     "effect": "Skill Link causes multi-strike moves to always hit their maximum number of times. The moves affected are listed below; note that moves such as Double Kick that always strike the same number of times are not affected.",
     "desc": "Maximizes the number of times multistrike moves hit.",
@@ -1885,6 +1944,16 @@
     ]
   },
   {
+    "name": "Solid Rock",
+    "effect": "Solid Rock reduces the damage taken from super-effective attacks by 25%.For example, a Water-type move used against a Rock-type Pokémon with Solid Rock would deal 1.5× the usual damage instead of 2×. A double weakness would be reduced from 4× to 3×.",
+    "desc": "Reduces the power of supereffective attacks that hit the Pokémon.",
+    "id": "solid-rock",
+    "searchTerms": [
+      "solid",
+      "rock"
+    ]
+  },
+  {
     "name": "Soul-Heart",
     "effect": "Soul-Heart raises the bearer's Special Attack one stage when any Pokémon on the field faints.",
     "desc": "Boosts the Pokémon's Sp. Atk stat every time another Pokémon faints.",
@@ -1920,6 +1989,15 @@
     "id": "stakeout",
     "searchTerms": [
       "stakeout"
+    ]
+  },
+  {
+    "name": "Stall",
+    "effect": "The Pokémon moves after all other Pokémon do.",
+    "desc": "The Pokémon is always the last to use its moves.",
+    "id": "stall",
+    "searchTerms": [
+      "stall"
     ]
   },
   {
@@ -2027,6 +2105,26 @@
     ]
   },
   {
+    "name": "Suction Cups",
+    "effect": "Suction Cups prevents opponents forcing the ability-bearer to switch out or flee via the moves Roar, Whirlwind, Circle Throw, or Dragon Tail, or the item Red Card.",
+    "desc": "The Pokémon uses suction cups to stay in one spot. This protects it from moves and items that would force it to switch out.",
+    "id": "suction-cups",
+    "searchTerms": [
+      "suction",
+      "cups"
+    ]
+  },
+  {
+    "name": "Super Luck",
+    "effect": "Super Luck raises the ability-bearer's critical-hit ratio by one stage (for most moves this increases from a 1⁄16 chance to 1⁄8).",
+    "desc": "The Pokémon is so lucky that the critical-hit ratios of its moves are boosted.",
+    "id": "super-luck",
+    "searchTerms": [
+      "super",
+      "luck"
+    ]
+  },
+  {
     "name": "Supersweet Syrup",
     "effect": "A sickly sweet scent spreads across the field the first time the Pokémon enters a battle, lowering the evasiveness of opposing Pokémon.",
     "desc": "A sickly sweet scent spreads across the field the first time the Pokémon enters a battle, lowering the evasiveness of opposing Pokémon.",
@@ -2034,6 +2132,16 @@
     "searchTerms": [
       "supersweet",
       "syrup"
+    ]
+  },
+  {
+    "name": "Supreme Overlord",
+    "effect": "Attack and Special Attack are boosted for each party Pokémon that has been defeated.",
+    "desc": "When the Pokémon enters a battle, its Attack and Sp. Atk stats are slightly boosted for each of the allies in its party that have already been defeated.",
+    "id": "supreme-overlord",
+    "searchTerms": [
+      "supreme",
+      "overlord"
     ]
   },
   {
@@ -2123,6 +2231,16 @@
     "searchTerms": [
       "tangled",
       "feet"
+    ]
+  },
+  {
+    "name": "Tangling Hair",
+    "effect": "Contact with the Pokémon lowers the attacker's Speed stat.",
+    "desc": "Contact with the Pokémon lowers the attacker's Speed stat.",
+    "id": "tangling-hair",
+    "searchTerms": [
+      "tangling",
+      "hair"
     ]
   },
   {
@@ -2277,6 +2395,15 @@
     "id": "transistor",
     "searchTerms": [
       "transistor"
+    ]
+  },
+  {
+    "name": "Triage",
+    "effect": "Triage increases the priority of HP-restoring moves to +3, when used by the ability-bearer.",
+    "desc": "Gives priority to the Pokémon's healing moves.",
+    "id": "triage",
+    "searchTerms": [
+      "triage"
     ]
   },
   {
