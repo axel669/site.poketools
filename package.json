@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build/dev": "rollup -c config/rollup.dev.js",
-    "build/prod": "rollup -c config/rollup.production.js",
+    "build": "rollup -c config/rollup.config.js",
     "site/start": "wrangler pages dev site --port=45067",
     "why": "echo why"
   },
@@ -26,9 +25,13 @@
     "svelte": "^4.2.18"
   },
   "imports": {
-    "#lib/*": "./lib/*"
+    "#lib/*": "./lib/*",
+    "#state/*": "./src/state/*.js"
   },
   "dependencies": {
+    "@axel669/array-sort": "^0.1.0",
+    "@axel669/http": "^0.1.2",
+    "@rollup/plugin-commonjs": "^26.0.1",
     "mingo": "^6.4.15"
   }
 }
