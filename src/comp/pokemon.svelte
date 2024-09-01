@@ -94,11 +94,15 @@
         </tr>
 
         <tr slot="row" let:row>
-            <th>{row.name}</th>
+            <th>
+                <Link href="#/move/{row.id}">
+                    {row.name}
+                </Link>
+            </th>
             <td>{row.source}</td>
             <td>{row.type}</td>
             <td>{row.category}</td>
-            <td>{row.power}</td>
+            <td>{row.power ?? ""}</td>
         </tr>
     </Table>
 </Paper>
