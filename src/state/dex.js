@@ -3,6 +3,80 @@ import http from "@axel669/http/browser"
 
 import { writable } from "svelte/store"
 
+/**
+@typedef {{
+    accuracy: int
+    category: "physical" | "special" | "status"
+    desc: string
+    effect: int
+    id: string
+    name: string
+    power: int
+    pp: int
+    searchTerms: string[]
+    type: string
+    source: MoveSource
+}} Move
+*/
+/**
+@typedef {
+    Move &
+    {
+        source: MoveSource
+    }
+} LearnedMove
+*/
+
+/**
+@typedef {{
+    ability: {
+        normal: Ability[]
+        hidden: Ability?
+    }
+    displayName: string
+    evolution
+    formName: string
+    height: {
+        metric: number
+        imperial: number
+    }
+    id: string
+    moves: LearnedMove[]
+    name: string
+    national: string
+    number: int
+    searchTerms: string[]
+    species: string
+    stats: {
+        hp: int
+        atk: int
+        def: int
+        satk: int
+        sdef: int
+        spd: int
+    }
+    typeEffect: {
+        [type: string]: number
+    }
+    types: string[]
+    weight: {
+        metric: number
+        imperial: number
+    }
+}} Pokemon
+*/
+
+/**
+@typedef {{
+    dexDisplay: {
+        [displayName: string]: Pokemon
+    }
+    dex: {
+        [id: string]: Pokemon
+    }
+}} Reference
+*/
+
 const constructPokemon = (mon, sources) => {
     const { abilityRef, moveRef, typeEffectRef, evoList, moveLearnRef } = sources
     return {
@@ -28,6 +102,7 @@ const constructPokemon = (mon, sources) => {
 
 export const pokedex = writable(null)
 export const autocomplete = writable(null)
+/** @type {Writable<Reference?>} */
 export const ref = writable(null)
 
 const setup = async () => {
@@ -63,6 +138,7 @@ const setup = async () => {
         move: sources.moveRef,
         ability: sources.abilityRef,
     })
+    console.log(dex)
     pokedex.set(dex)
 }
 setup()
