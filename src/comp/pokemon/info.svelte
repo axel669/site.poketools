@@ -5,7 +5,7 @@
     export let value
 </script>
 
-<Flex r="4px" bg.c="@background-element">
+<Flex r="4px" bg.c="@background-element" fl.cross="start">
     <Text subtitle t.c="@primary">{label}</Text>
     <slot>
         {value}

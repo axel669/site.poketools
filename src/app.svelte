@@ -25,6 +25,7 @@
     import Search from "./comp/search.svelte"
     import Complex from "./comp/complex.svelte"
     import Pokemon from "./comp/pokemon.svelte"
+    import Ability from "./comp/ability.svelte"
 </script>
 
 <svelte:body use:wsx={{ "@@theme": "dark", "@@app": true }} />
@@ -59,6 +60,13 @@
                     <Text>Could not find pokemon</Text>
                 {:else}
                     <Pokemon pokemon={$ref.dex[routeInfo.params.id]} />
+                {/if}
+            </Route>
+            <Route path="ability/:id" let:routeInfo>
+                {#if $ref.ability[routeInfo.params.id] === undefined}
+                    <Text>Could not find ability</Text>
+                {:else}
+                    <Ability ability={$ref.ability[routeInfo.params.id]} />
                 {/if}
             </Route>
         {/if}

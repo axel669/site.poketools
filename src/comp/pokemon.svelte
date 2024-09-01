@@ -4,6 +4,7 @@
         Titlebar,
         Text,
         Table,
+        Link,
 
         Grid,
         Flex,
@@ -49,11 +50,21 @@
         <Info label="Height" value="{pokemon.height.imperial}lbs" />
         <Info label="Weight" value="{pokemon.weight.imperial}lbs" />
         <Info label="Normal Abilities">
-            {pokemon.ability.normal[0].name}<br />
-            {pokemon.ability.normal[1]?.name ?? ""}
+            <Link href="#/ability/{pokemon.ability.normal[0].id}">
+                {pokemon.ability.normal[0].name}
+            </Link>
+            {#if pokemon.ability.normal.length > 1}
+                <Link href="#/ability/{pokemon.ability.normal[1].id}">
+                    {pokemon.ability.normal[1].name}
+                </Link>
+            {/if}
         </Info>
         <Info label="Hidden Ability">
-            {pokemon.ability.hidden?.name ?? ""}
+            {#if pokemon.ability.hidden !== null}
+                <Link href="#/ability/{pokemon.ability.hidden.id}">
+                    {pokemon.ability.hidden.name}
+                </Link>
+            {/if}
         </Info>
     </Grid>
 
