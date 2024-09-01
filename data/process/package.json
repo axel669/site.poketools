@@ -1,0 +1,26 @@
+{
+  "name": "scratch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "imports": {
+    "#dex": "../data/dex.json",
+    "#ability": "../data/ability.json",
+    "#move": "../data/move.json",
+    "#type-effect": "../data/type-effect.json",
+    "#evolution": "../data/evolution.json"
+  },
+  "dependencies": {
+    "@axel669/array-sort": "^0.1.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "fs-jetpack": "^5.1.0",
+    "jsdom": "^24.1.0"
+  }
+}
