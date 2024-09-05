@@ -138,7 +138,7 @@ const setup = async () => {
         move: sources.moveRef,
         ability: sources.abilityRef,
     })
-    console.log(dex)
+    window.sources = sources
     pokedex.set(dex)
 }
 setup()
