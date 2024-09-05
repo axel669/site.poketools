@@ -1,15 +1,22 @@
 <script>
     import {
+        Icon,
+        Input,
         Paper,
-        Titlebar,
-        Text,
+        Select,
+        Tabs,
         Table,
+        Text,
+        Titlebar,
+
         Link,
 
         Grid,
         Flex,
     } from "@axel669/zephyr"
     import sort from "@axel669/array-sort"
+
+    import { typeColor, typeDisplay, catDisplay } from "#state/refs"
 
     import Info from "./pokemon/info.svelte"
 
@@ -26,15 +33,103 @@
         ["Speed", pokemon.stats.spd, "rgb(213, 29, 173)"],
     ]
 
-    const moveList = [...pokemon.moves].sort(
-        sort.compose(
-            sort.prop(".name", sort.natural),
-            sort.prop(".source", sort.natural),
+    const gradient = [
+        typeColor[pokemon.types[0]],
+        typeColor[pokemon.types[1] ?? pokemon.types[0]],
+    ].join(", ")
+
+    const tabOptions = [
+        {
+            label: "Name ↓",
+            value: sort.compose(
+                sort.prop(".name", sort.natural),
+                sort.prop(".source", sort.natural),
+            )
+        },
+        {
+            label: "Name ↑",
+            value: sort.compose(
+                sort.reverse(
+                    sort.prop(".name", sort.natural)
+                ),
+                sort.prop(".source", sort.natural),
+            )
+        },
+        {
+            label: "Type ↓",
+            value: sort.compose(
+                sort.prop(".type", sort.string),
+                sort.prop(".name", sort.natural),
+                sort.prop(".source", sort.natural),
+            )
+        },
+        {
+            label: "Type ↑",
+            value: sort.compose(
+                sort.reverse(
+                    sort.prop(".type", sort.string)
+                ),
+                sort.prop(".name", sort.natural),
+                sort.prop(".source", sort.natural),
+            )
+        },
+        {
+            label: "Category ↓",
+            value: sort.compose(
+                sort.prop(".category", sort.string),
+                sort.prop(".name", sort.natural),
+                sort.prop(".source", sort.natural),
+            )
+        },
+        {
+            label: "Category ↑",
+            value: sort.compose(
+                sort.reverse(
+                    sort.prop(".category", sort.string)
+                ),
+                sort.prop(".name", sort.natural),
+                sort.prop(".source", sort.natural),
+            )
+        },
+        {
+            label: "Power ↓",
+            value: sort.compose(
+                sort.prop(".power", sort.number),
+                sort.prop(".name", sort.natural),
+                sort.prop(".source", sort.natural),
+            )
+        },
+        {
+            label: "Power ↑",
+            value: sort.compose(
+                sort.reverse(
+                    sort.prop(".power", sort.number)
+                ),
+                sort.prop(".name", sort.natural),
+                sort.prop(".source", sort.natural),
+            )
+        },
+    ]
+    let moveSort = tabOptions[0].value
+
+    let filterText = ""
+
+    const moves = [...pokemon.moves]
+    $: filter = filterText.toLowerCase().replace(/\s+/, " ").trim()
+    $: moveList =
+        moves
+        .filter(
+            move => (
+                move.name.toLowerCase().includes(filter) === true
+                || move.category.includes(filter) === true
+                || move.type.includes(filter) === true
+                || move.id.includes(filter) === true
+            )
         )
-    )
+        .sort(moveSort)
 </script>
 
-<Paper card color="@secondary" h="100%">
+<Paper h="100%" l-gap="8px" l-p="0px">
     <Titlebar slot="header" fill color="@secondary">
         <Text slot="title" title>
             {pokemon.displayName}
@@ -42,11 +137,17 @@
                 {pokemon.species}
             </Text>
         </Text>
+
+        <div ws-x="[bg linear-gradient(to right, {gradient})]
+        [b 2px solid black] [w 48px] [m 4px] [r 4px] [z 1]" slot="menu" />
     </Titlebar>
 
+    <Titlebar color="@secondary" bg.c="@background-element" sticky>
+        <Text title slot="title">General Info</Text>
+    </Titlebar>
     <Grid p="0px" colsFit="150px, 1fr" gap="8px">
         <Info label="Number" value={pokemon.number} />
-        <Info label="Type" value={pokemon.types.join(" / ")} />
+        <Info label="Type" value={pokemon.types.map(t => typeDisplay[t]).join(" / ")} />
         <Info label="Height" value="{pokemon.height.imperial}lbs" />
         <Info label="Weight" value="{pokemon.weight.imperial}lbs" />
         <Info label="Normal Abilities">
@@ -68,6 +169,9 @@
         </Info>
     </Grid>
 
+    <Titlebar color="@secondary" bg.c="@background-element" sticky>
+        <Text title slot="title">Base Stats</Text>
+    </Titlebar>
     <Table data={statData} h="1px">
         <tr slot="header">
             <td ws-x="[w 120px]">Stat</td>
@@ -84,25 +188,39 @@
         </tr>
     </Table>
 
-    <Table data={moveList} fillHeader color="@primary">
-        <tr slot="header">
-            <th ws-x="[y 0px]">Name</th>
-            <th ws-x="[y 0px]">Learn</th>
-            <th ws-x="[y 0px]">Type</th>
-            <th ws-x="[y 0px]">Cat</th>
-            <th ws-x="[y 0px]">Power</th>
-        </tr>
+    <div ws-x="[bg.c @background-element] [sticky]">
+        <Titlebar color="@secondary">
+            <Text title slot="title">Moves</Text>
+            <Select options={tabOptions} bind:value={moveSort}
+            slot="action" r="0px" color="@secondary" m.y="2px" />
+        </Titlebar>
 
-        <tr slot="row" let:row>
-            <th>
-                <Link href="#/move/{row.id}">
-                    {row.name}
-                </Link>
-            </th>
-            <td>{row.source}</td>
-            <td>{row.type}</td>
-            <td>{row.category}</td>
-            <td>{row.power ?? ""}</td>
-        </tr>
-    </Table>
+        <Input type="text" bind:value={filterText} flat r="0px" w="100%">
+            <div slot="start" ws-x="[$adorn]">
+                <Icon name="search" />
+            </div>
+        </Input>
+    </div>
+    {#each moveList as move, index}
+        <Grid cols="28px 2fr 1fr 42px" b.x="8px solid @border-color" b.y="1px solid @border-color"
+        _border-color={typeColor[move.type]} r="4px" bg="@background-element">
+            <Link href="#/move/{move.id}" t.dec="none" button target="_blank">
+                <Icon name="box-arrow-up-right" />
+            </Link>
+
+            <Text title>
+                {move.name}
+                <Text subtitle>Learned: {move.source}</Text>
+            </Text>
+
+            <Flex>
+                <Text>{typeDisplay[move.type]}</Text>
+                <Text>{catDisplay[move.category]}</Text>
+                <Text>{move.power ?? "-"}</Text>
+            </Flex>
+
+            <div ws-x="[bg.img url(/image/{move.category}.png)]
+            [bg.rep no-repeat] [bg.pos center center] [bg.sz 42px 42px]" />
+        </Grid>
+    {/each}
 </Paper>
