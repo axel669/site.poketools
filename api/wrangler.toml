@@ -1,0 +1,7 @@
+name = "poketools-api"
+compatibility_date = "2024-06-03"
+
+main = "artifacts/main.js"
+
+[build]
+command = "pnpm run build"
