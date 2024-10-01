@@ -16,55 +16,81 @@
     import { Query, Aggregator } from "mingo"
 
     import PokemonOverlay from "./complex/pokemon-overlay.svelte"
+    import Group from "./complex/group.svelte"
 
     let list = [""]
     let results = null
-    const find = () => {
-        const query = new Aggregator([
-            {$match: {
-                $and: list.map(
-                    name => ({ "moves.name": name })
-                )
-            }},
-            {$project: {
-                id: 1,
-                name: 1,
-                formName: 1,
-                moves: {
-                    $filter: {
-                        input: "$moves",
-                        as: "moves",
-                        cond: {
-                            $in: ["$$moves.name", list]
-                        }
-                    }
-                }
-            }}
-        ])
-        results = query.run($pokedex)
-        console.log(results)
+
+    const createQuery = (condition) => {
+        if (condition.op !== undefined) {
+            return {
+                [`$${condition.op}`]: condition.cond.map(createQuery)
+            }
+        }
+
+        if (condition.type === "move") {
+            return { "moves.name": condition.name }
+        }
+        if (condition.type === "type") {
+            return { "types": condition.name.toLowerCase() }
+        }
+        if (condition.type === "ability") {
+            return {
+                $or: [
+                    { "ability.normal.name": condition.name },
+                    { "ability.hidden.name": condition.name },
+                ]
+            }
+        }
+
+        throw new Error(`Unsupported search type: ${condition.type}`)
     }
-    const remove = handler$(
-        (index) => list = list.filter(
-            (_, i) => i !== index
-        )
-    )
+
+    const find = () => {
+        console.log(search)
+        const query = createQuery(search)
+        console.log(query)
+        const finder = new Aggregator([
+            { $match: query }
+        ])
+        results = finder.run($pokedex)
+        console.log(results)
+        return
+        // const query = new Aggregator([
+        //     {$match: {
+        //         $and: list.map(
+        //             name => ({ "moves.name": name })
+        //         )
+        //     }},
+        //     {$project: {
+        //         id: 1,
+        //         name: 1,
+        //         formName: 1,
+        //         moves: {
+        //             $filter: {
+        //                 input: "$moves",
+        //                 as: "moves",
+        //                 cond: {
+        //                     $in: ["$$moves.name", list]
+        //                 }
+        //             }
+        //         }
+        //     }}
+        // ])
+        // results = query.run($pokedex)
+        // console.log(results)
+    }
+
+    let search = { op: "and", cond: [] }
+    // $: console.log(search)
 </script>
 
 <Grid cols="1fr 1fr">
-    <Button on:click={() => list = [...list, ""]} outline color="@primary">
-        Add
-    </Button>
     <Button on:click={find} outline color="@secondary">
         Search
     </Button>
 </Grid>
-{#each list as name, index}
-    <Grid cols="min-content 1fr">
-        <Button on:click={remove(index)} outline color="@danger">X</Button>
-        <Input bind:value={name} autocompleteOptions={$autocomplete.moveName} />
-    </Grid>
-{/each}
+<Group bind:item={search} />
 {#if results !== null}
     <Text>Results:</Text>
     <Flex gap="12px" p="0px">
@@ -77,9 +103,9 @@
                     {/if}
                 </Text>
 
-                {#each mon.moves as move}
+                <!-- {#each mon.moves as move}
                     <div>{move.name} @ {JSON.stringify(move.source)}</div>
-                {/each}
+                {/each} -->
                 <EntryButton props={{ pokemon: $ref.dex[mon.id] }}
                 component={PokemonOverlay} outline>
                     Quick View
