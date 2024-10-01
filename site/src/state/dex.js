@@ -80,6 +80,7 @@ import constructDex from "$shared/construct-dex"
 */
 
 export const pokedex = writable(null)
+/** @type {Writable<{pokemonName: string[], moveName: string[], abilityName: string[]}>} */
 export const autocomplete = writable(null)
 /** @type {Writable<Reference?>} */
 export const ref = writable(null)
@@ -95,7 +96,8 @@ const setup = async () => {
 
     autocomplete.set({
         pokemonName: dex.map(mon => mon.displayName),
-        moveName: Object.values(sources.moveRef).map(move => move.name)
+        moveName: Object.values(sources.moveRef).map(move => move.name),
+        abilityName: Object.values(sources.abilityRef).map(ability => ability.name)
     })
     ref.set(refs)
     window.sources = sources
