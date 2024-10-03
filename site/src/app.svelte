@@ -65,9 +65,9 @@
                 <Link href={relpath("search-complex")} button outline>
                     Search by Attributes
                 </Link>
-                <Link href={relpath("damage-calc")} button outline>
+                <!-- <Link href={relpath("damage-calc")} button outline>
                     Damage Calculator
-                </Link>
+                </Link> -->
             </Route>
             <Route path="search-name" component={Search} />
             <Route path="search-complex" component={Complex} />
@@ -92,7 +92,7 @@
                     <Move move={$ref.move[routeInfo.params.id]} />
                 {/if}
             </Route>
-            <Route path="damage-calc" component={Damage} />
+            <!-- <Route path="damage-calc" component={Damage} /> -->
         {/if}
     </Paper>
 </Screen>

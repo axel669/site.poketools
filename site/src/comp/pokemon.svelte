@@ -153,7 +153,14 @@
         </Text>
 
         <div ws-x="[bg linear-gradient(to right, {gradient})]
-        [b 2px solid black] [w 48px] [m 4px] [r 4px] [z 1]" slot="menu" />
+        [b 2px solid black] [w 48px] [m 4px] [r 4px] [z 1]" slot="menu">
+            <img
+                src="/image/pokemon/icon/{pokemon.id}.png"
+                alt="{pokemon.displayName} Regular"
+                ws-x="[h 100%] [w 100%]"
+                style="object-fit: contain;"
+            />
+        </div>
     </Titlebar>
 
     <Titlebar color="@secondary" bg.c="@background-element" sticky>
@@ -163,7 +170,7 @@
     <Grid p="0px" cols="1fr 1fr">
         <div ws-x="[t.a right]">
             <img
-                src="/image/pokemon/{pokemon.number}.png"
+                src="/image/pokemon/regular/{pokemon.id}.png"
                 alt="{pokemon.displayName} Regular"
                 ws-x="[w 100%] [w.max 250px]"
             />
@@ -171,7 +178,7 @@
 
         <div>
             <img
-                src="/image/pokemon/{pokemon.number}-shiny.png"
+                src="/image/pokemon/shiny/{pokemon.id}.png"
                 alt="{pokemon.displayName} Shiny"
                 ws-x="[w 100%] [w.max 250px]"
             />

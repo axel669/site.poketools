@@ -15,7 +15,7 @@
     "@axel669/asuid": "^0.2.1",
     "@axel669/rollup-copy-static": "^0.1.2",
     "@axel669/rollup-html-input": "^0.1.2",
-    "@axel669/zephyr": "0.4.6",
+    "@axel669/zephyr": "0.4.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "fs-jetpack": "^5.1.0",
