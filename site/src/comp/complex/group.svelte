@@ -1,3 +1,24 @@
+<script context="module">
+    const init = () => {
+        const cond = {
+            type: "group",
+            op: "$and",
+            cond: [],
+            query: () => ({
+                [cond.op]: cond.cond.map(
+                    cond => cond.query()
+                )
+            })
+        }
+        return cond
+    }
+    export const groupInit = () => {
+        const search = init()
+        search.component = null
+        return search
+    }
+</script>
+
 <script>
     import {
         Button,
@@ -12,34 +33,48 @@
         handler$,
     } from "@axel669/zephyr"
 
-    import Move from "./move.svelte"
-    import Ability from "./ability.svelte"
-    import Type from "./type.svelte"
+    import * as Move from "./move.svelte"
+    import * as Ability from "./ability.svelte"
+    import * as Type from "./type.svelte"
+    import * as Stat from "./stat.svelte"
+    import * as TypeEffect from "./type-effect.svelte"
 
     export let item
 
-    const condition = {
-        move: Move,
-        ability: Ability,
-        type: Type,
-    }
+    // const condition = {
+    //     move: Move,
+    //     ability: Ability,
+    //     type: Type,
+    //     stat: Stat,
+    // }
     const options = [
-        { label: "All of", value: "and" },
-        { label: "Any of", value: "or" }
+        { label: "All of", value: "$and" },
+        { label: "Any of", value: "$or" }
     ]
 
-    const addGroup = () => {
-        item.cond = [...item.cond, { op: "and", cond: [] }]
+    const Group = {
+        default: null,
+        info: {
+            button: "+Group",
+            init,
+        }
     }
-    const addMove = () => {
-        item.cond = [...item.cond, { type: "move", name: "" }]
-    }
-    const addAbility = () => {
-        item.cond = [...item.cond, { type: "ability", name: "" }]
-    }
-    const addType = () => {
-        item.cond = [...item.cond, { type: "type", name: "" }]
-    }
+    const list = [
+        Group,
+        Move,
+        Ability,
+        Type,
+        Stat,
+        TypeEffect,
+    ]
+
+    const addCondition = handler$(
+        (condition) => {
+            const cond = condition.info.init()
+            cond.component = condition.default
+            item.cond = [ ...item.cond, cond ]
+        }
+    )
     const remove = handler$(
         (cond) => item.cond = item.cond.filter(c => c !== cond)
     )
@@ -56,26 +91,19 @@
             <Button on:click={remove(cond)} ground color="@danger" fill p="4px 12px">
                 <Icon name="trash" />
             </Button>
-            {#if cond.op !== undefined}
+            {#if cond.component === null}
                 <svelte:self bind:item={cond} />
             {:else}
-                <svelte:component this={condition[cond.type]} bind:item={cond} />
+                <svelte:component this={cond.component} bind:item={cond} />
             {/if}
         {/each}
     </Grid>
 
-    <Grid cols="1fr 1fr 1fr 1fr" slot="footer">
-        <Button outline on:click={addGroup} ground>
-            +Group
-        </Button>
-        <Button outline on:click={addMove} ground>
-            +Move
-        </Button>
-        <Button outline on:click={addAbility} ground>
-            +Ability
-        </Button>
-        <Button outline on:click={addType} ground>
-            +Type
-        </Button>
+    <Grid cols="1fr 1fr 1fr" slot="footer">
+        {#each list as condition}
+            <Button outline on:click={addCondition(condition)} ground>
+                {condition.info.button}
+            </Button>
+        {/each}
     </Grid>
 </Paper>

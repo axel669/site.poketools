@@ -63,3 +63,21 @@ export const statDisplay = {
     sdef: "Sp. Defense",
     spd: "Speed",
 }
+export const statDisplayShort = {
+    hp: "HP",
+    atk: "Attack",
+    def: "Defense",
+    satk: "Sp. Atk",
+    sdef: "Sp. Def",
+    spd: "Speed",
+}
+
+export const gameDisplay = {
+    "legends-arceus": "Legends Arceus",
+    "sun": "Sun",
+    "moon": "Moon",
+    "ultra-sun": "Ultra Sun",
+    "ultra-moon": "Ultra Moon",
+    "lets-go-eevee": "Let's Go Eevee",
+    "lets-go-pikachu": "Let's Go Pikachu",
+}

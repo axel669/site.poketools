@@ -7,6 +7,8 @@
         Icon,
 
         Grid,
+
+        Title,
     } from "@axel669/zephyr"
 
     import { autocomplete, ref } from "#state/dex"
@@ -22,6 +24,8 @@
 
     // $: console.log(filtered)
 </script>
+
+<Title data="Name Search" />
 
 <Paper r="0px" h="100%" b.w="0px" sh.box="none" l-p="8px 0px">
     <Input bind:value label="Filter Name" slot="header" flat r="0px" />

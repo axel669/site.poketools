@@ -1,3 +1,17 @@
+<script context="module">
+    export const info = {
+        button: "+Type",
+        init: () => {
+            const cond = {
+                type: "type",
+                name: "",
+                query: () => ({ "types": cond.name.toLowerCase() })
+            }
+            return cond
+        }
+    }
+</script>
+
 <script>
     import {
         Input,

@@ -13,6 +13,7 @@
 
         Route,
         relpath,
+        Title,
 
         HexagonSpinner as Spinner,
 
@@ -33,6 +34,8 @@
 
     import Menu from "./comp/menu.svelte"
 </script>
+
+<Title format={data => `PokeTools - ${data}`} data="Home" />
 
 <svelte:body use:wsx={{ "@@theme": $theme, "@@app": true }} />
 
@@ -92,7 +95,7 @@
                     <Move move={$ref.move[routeInfo.params.id]} />
                 {/if}
             </Route>
-            <!-- <Route path="damage-calc" component={Damage} /> -->
+            <Route path="damage-calc" component={Damage} />
         {/if}
     </Paper>
 </Screen>

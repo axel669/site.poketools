@@ -13,7 +13,7 @@ export default {
         path.resolve(root, "data/gen9")
     ),
     dest: fs.cwd(
-        path.resolve(root, "static")
+        path.resolve(root, "site/static")
     ),
     load: fs.cwd(
         path.resolve(root, "data/process/source")

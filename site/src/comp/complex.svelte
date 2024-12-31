@@ -8,6 +8,7 @@
         Link,
 
         handler$,
+        Title,
 
         Grid,
         Flex,
@@ -16,74 +17,60 @@
     import { Query, Aggregator } from "mingo"
 
     import PokemonOverlay from "./complex/pokemon-overlay.svelte"
-    import Group from "./complex/group.svelte"
+    import Group, { groupInit } from "./complex/group.svelte"
 
     let list = [""]
     let results = null
 
-    const createQuery = (condition) => {
-        if (condition.op !== undefined) {
-            return {
-                [`$${condition.op}`]: condition.cond.map(createQuery)
-            }
-        }
+    // const createQuery = (condition) => {
+    //     // if (condition.op !== undefined) {
+    //     if (condition.type === "group") {
+    //         return {
+    //             [condition.op]: condition.cond.map(createQuery)
+    //         }
+    //     }
 
-        if (condition.type === "move") {
-            return { "moves.name": condition.name }
-        }
-        if (condition.type === "type") {
-            return { "types": condition.name.toLowerCase() }
-        }
-        if (condition.type === "ability") {
-            return {
-                $or: [
-                    { "ability.normal.name": condition.name },
-                    { "ability.hidden.name": condition.name },
-                ]
-            }
-        }
+    //     if (condition.type === "move") {
+    //         return { "moves.name": condition.name }
+    //     }
+    //     if (condition.type === "type") {
+    //         return { "types": condition.name.toLowerCase() }
+    //     }
+    //     if (condition.type === "ability") {
+    //         return {
+    //             $or: [
+    //                 { "ability.normal.name": condition.name },
+    //                 { "ability.hidden.name": condition.name },
+    //             ]
+    //         }
+    //     }
+    //     if (condition.type === "stat") {
+    //         return {
+    //             [`stats.${condition.stat}`]: {
+    //                 [condition.compare]: parseInt(condition.value),
+    //             },
+    //         }
+    //     }
 
-        throw new Error(`Unsupported search type: ${condition.type}`)
-    }
+    //     throw new Error(`Unsupported search type: ${condition.type}`)
+    // }
 
     const find = () => {
         console.log(search)
-        const query = createQuery(search)
+        // const query = createQuery(search)
+        const query = search.query()
         console.log(query)
         const finder = new Aggregator([
             { $match: query }
         ])
         results = finder.run($pokedex)
         console.log(results)
-        return
-        // const query = new Aggregator([
-        //     {$match: {
-        //         $and: list.map(
-        //             name => ({ "moves.name": name })
-        //         )
-        //     }},
-        //     {$project: {
-        //         id: 1,
-        //         name: 1,
-        //         formName: 1,
-        //         moves: {
-        //             $filter: {
-        //                 input: "$moves",
-        //                 as: "moves",
-        //                 cond: {
-        //                     $in: ["$$moves.name", list]
-        //                 }
-        //             }
-        //         }
-        //     }}
-        // ])
-        // results = query.run($pokedex)
-        // console.log(results)
     }
 
-    let search = { op: "and", cond: [] }
-    // $: console.log(search)
+    let search = groupInit()
 </script>
+
+<Title data="Advanced Search" />
 
 <Grid cols="1fr 1fr">
     <Button on:click={find} outline color="@secondary">

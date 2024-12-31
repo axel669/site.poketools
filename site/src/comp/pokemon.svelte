@@ -1,5 +1,6 @@
 <script>
     import {
+        Details,
         Icon,
         Input,
         Paper,
@@ -10,6 +11,7 @@
         Titlebar,
 
         Link,
+        Title,
 
         Grid,
         Flex,
@@ -25,6 +27,7 @@
 
     import Info from "./pokemon/info.svelte"
     import Ability from "./pokemon/ability.svelte"
+    import Evolution from "./pokemon/evolution.svelte"
 
     export let pokemon
 
@@ -141,7 +144,16 @@
             )
         )
         .sort(moveSort)
+
+    let sectionOpen = {
+        general: true,
+        evo: false,
+        stats: false,
+        moves: false,
+    }
 </script>
+
+<Title data={pokemon.displayName} />
 
 <Paper h="100%" l-gap="8px" l-p="0px">
     <Titlebar slot="header" fill color="@secondary">
@@ -165,61 +177,87 @@
 
     <Titlebar color="@secondary" bg.c="@background-element" sticky>
         <Text title slot="title">General Info</Text>
+
+        <Details bind:open={sectionOpen.general} slot="menu"
+        m.y="2px" grid gr.rows="1fr" color="@secondary">
+            <div slot="label" ws-x="[w 10px] [h 100%]" />
+        </Details>
     </Titlebar>
 
-    <Grid p="0px" cols="1fr 1fr">
-        <div ws-x="[t.a right]">
-            <img
-                src="/image/pokemon/regular/{pokemon.id}.png"
-                alt="{pokemon.displayName} Regular"
-                ws-x="[w 100%] [w.max 250px]"
-            />
-        </div>
+    <Flex hide={sectionOpen.general === false} p="0px">
+        <Grid p="0px" cols="1fr 1fr">
+            <div ws-x="[t.a right]">
+                <img
+                    src="/image/pokemon/regular/{pokemon.id}.png"
+                    alt="{pokemon.displayName} Regular"
+                    ws-x="[w 100%] [w.max 250px]"
+                />
+            </div>
 
-        <div>
-            <img
-                src="/image/pokemon/shiny/{pokemon.id}.png"
-                alt="{pokemon.displayName} Shiny"
-                ws-x="[w 100%] [w.max 250px]"
-            />
-        </div>
-    </Grid>
+            <div>
+                <img
+                    src="/image/pokemon/shiny/{pokemon.id}.png"
+                    alt="{pokemon.displayName} Shiny"
+                    ws-x="[w 100%] [w.max 250px]"
+                />
+            </div>
+        </Grid>
 
-    <Grid p="0px" colsFit="150px, 1fr" gap="8px">
-        <Info label="Number" value={pokemon.number} />
-        <Info label="Type" value={pokemon.types.map(t => typeDisplay[t]).join(" / ")} />
-        <Info label="Height" value="{pokemon.height.imperial} in." />
-        <Info label="Weight" value="{pokemon.weight.imperial}lbs" />
-    </Grid>
-    <Info label="Abilities">
-        <Ability ability={pokemon.ability.normal[0]} />
-        <Ability ability={pokemon.ability.normal[1]} />
-        <Ability ability={pokemon.ability.hidden} hidden />
-    </Info>
+        <Grid p="0px" colsFit="150px, 1fr" gap="8px">
+            <Info label="Number" value={pokemon.number} />
+            <Info label="Type" value={pokemon.types.map(t => typeDisplay[t]).join(" / ")} />
+            <Info label="Height" value="{pokemon.height.imperial} in." />
+            <Info label="Weight" value="{pokemon.weight.imperial}lbs" />
+        </Grid>
+        <Info label="Abilities">
+            <Ability ability={pokemon.ability.normal[0]} />
+            <Ability ability={pokemon.ability.normal[1]} />
+            <Ability ability={pokemon.ability.hidden} hidden />
+        </Info>
+    </Flex>
+
+    <Titlebar color="@secondary" bg.c="@background-element" sticky>
+        <Text title slot="title">Evolution</Text>
+
+        <Details bind:open={sectionOpen.evo} slot="menu"
+        m.y="2px" grid gr.rows="1fr" color="@secondary">
+            <div slot="label" ws-x="[w 10px] [h 100%]" />
+        </Details>
+    </Titlebar>
+    <Flex hide={sectionOpen.evo === false} p="0px" fl.cross="center">
+        <Evolution name={pokemon.name} evo={pokemon.evolution} />
+    </Flex>
 
     <Titlebar color="@secondary" bg.c="@background-element" sticky>
         <Text title slot="title">Base Stats</Text>
-    </Titlebar>
-    <Table data={statData} h="1px">
-        <tr slot="header">
-            <td ws-x="[w 120px]">Stat</td>
-            <td ws-x="[w 100px]">Value</td>
-            <td></td>
-        </tr>
 
-        <tr slot="row" let:row>
-            <td>{row.name}</td>
-            <td>
-                <Text>{row.base}</Text>
-                <Text disp="block" subtitle>
-                    {row.min} - {row.max}
-                </Text>
-            </td>
-            <td ws-x="[h 100%]">
-                <div ws-x="[h 20px] [w {(row.base / 255) * 100}%] [bg {row.color}]" />
-            </td>
-        </tr>
-    </Table>
+        <Details bind:open={sectionOpen.stats} slot="menu"
+        m.y="2px" grid gr.rows="1fr" color="@secondary">
+            <div slot="label" ws-x="[w 10px] [h 100%]" />
+        </Details>
+    </Titlebar>
+    <Flex hide={sectionOpen.stats === false} p="0px">
+        <Table data={statData} h="1px">
+            <tr slot="header">
+                <td ws-x="[w 120px]">Stat</td>
+                <td ws-x="[w 100px]">Value</td>
+                <td></td>
+            </tr>
+
+            <tr slot="row" let:row>
+                <td>{row.name}</td>
+                <td>
+                    <Text>{row.base}</Text>
+                    <Text disp="block" subtitle>
+                        {row.min} - {row.max}
+                    </Text>
+                </td>
+                <td ws-x="[h 100%]">
+                    <div ws-x="[h 20px] [w {(row.base / 255) * 100}%] [bg {row.color}]" />
+                </td>
+            </tr>
+        </Table>
+    </Flex>
 
     <div ws-x="[bg.c @background-element] [sticky]">
         <Titlebar color="@secondary">
@@ -235,6 +273,11 @@
                 color="@secondary"
                 m.y="2px"
             />
+
+            <Details bind:open={sectionOpen.moves} slot="menu"
+            m.y="2px" grid gr.rows="1fr" color="@secondary">
+                <div slot="label" ws-x="[w 10px] [h 100%]" />
+            </Details>
         </Titlebar>
 
         <Input type="text" bind:value={filterText} flat r="0px" w="100%">
@@ -243,31 +286,33 @@
             </div>
         </Input>
     </div>
-    {#each moveList as move, index}
-        <Grid cols="28px 2fr 1fr 42px" b.x="8px solid @border-color" b.y="1px solid @border-color"
-        !@border-color={typeColor[move.type]} r="4px" bg="@background-element">
-            <Link href="#/move/{move.id}" t.dec="none" button target="_blank" ground>
-                <Icon name="box-arrow-up-right" />
-            </Link>
+    <Flex hide={sectionOpen.moves === false} p="0px">
+        {#each moveList as move, index}
+            <Grid cols="28px 2fr 1fr 42px" b.x="8px solid @border-color" b.y="1px solid @border-color"
+            !@border-color={typeColor[move.type]} r="4px" bg="@background-element">
+                <Link href="#/move/{move.id}" t.dec="none" button target="_blank" ground>
+                    <Icon name="box-arrow-up-right" />
+                </Link>
 
-            <Text title>
-                {move.name}
-                <Text subtitle>Learned: {move.source}</Text>
-            </Text>
-
-            <Flex>
-                <Text>
-                    {typeDisplay[move.type]}
-                    {#if pokemon.types.includes(move.type)}
-                        [STAB]
-                    {/if}
+                <Text title>
+                    {move.name}
+                    <Text subtitle>Learned: {move.source}</Text>
                 </Text>
-                <Text>{catDisplay[move.category]}</Text>
-                <Text>{move.power ?? "-"}</Text>
-            </Flex>
 
-            <div ws-x="[bg.img url(/image/{move.category}.png)]
-            [bg.rep no-repeat] [bg.pos center center] [bg.sz 42px 42px]" />
-        </Grid>
-    {/each}
+                <Flex>
+                    <Text>
+                        {typeDisplay[move.type]}
+                        {#if pokemon.types.includes(move.type)}
+                            [STAB]
+                        {/if}
+                    </Text>
+                    <Text>{catDisplay[move.category]}</Text>
+                    <Text>{move.power ?? "-"}</Text>
+                </Flex>
+
+                <div ws-x="[bg.img url(/image/{move.category}.png)]
+                [bg.rep no-repeat] [bg.pos center center] [bg.sz 42px 42px]" />
+            </Grid>
+        {/each}
+    </Flex>
 </Paper>

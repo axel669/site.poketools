@@ -1,0 +1,15 @@
+# apiKeyName: envault_local_key
+# origin: http://localhost:45067
+apiKeyName: envault_alpha_key
+origin: https://envault-alpha.axel669.net
+vaults:
+    default:
+        # vaultKeyName: envault_local_default_key
+        vaultKeyName: envault_alpha_default_key
+        keys:
+            cf.personal.api_key: CLOUDFLARE_API_TOKEN
+            cf.personal.account: CLOUDFLARE_ACCOUNT_ID
+            # cf.work.api_key: CLOUDFLARE_API_TOKEN
+            # cf.work.account: CLOUDFLARE_ACCOUNT_ID
+            # test.ssl: SSL_CERT
+            # other/wat: cool_var

@@ -1,3 +1,33 @@
+const countLeaf = (node) => {
+    if (node.to.length === 0) {
+        node.count = 1
+        return 1
+    }
+    node.count = node.to.reduce(
+        (total, item) => total + countLeaf(item),
+        0
+    )
+    return node.count
+}
+const constructEvoTree = (evo) => {
+    const nodes = evo.family.reduce(
+        (nodes, id) => {
+            nodes[id] = { id, gid: id.replaceAll("@", "_"), to: [] }
+            return nodes
+        },
+        {}
+    )
+    for (const link of evo.chain) {
+        const from = nodes[link.start]
+        const to = nodes[link.end]
+        to.cond = link.cond
+        from.to.push(to)
+    }
+    const root = nodes[evo.family[0]]
+    countLeaf(root)
+    evo.tree = root
+}
+
 const constructPokemon = (mon, sources) => {
     const { abilityRef, moveRef, typeEffectRef, evoList, moveLearnRef } = sources
     return {
@@ -17,7 +47,7 @@ const constructPokemon = (mon, sources) => {
         typeEffect: typeEffectRef[mon.types.sort().join("/")],
         evolution: evoList.find(
             evo => evo.family.includes(mon.id)
-        ) ?? null
+        ) ?? null,
     }
 }
 
@@ -25,6 +55,9 @@ export default (sources) => {
     const dex = Object.values(sources.dex).map(
         mon => constructPokemon(mon, sources)
     )
+    for (const evo of Object.values(sources.evoList)) {
+        constructEvoTree(evo)
+    }
     const refs = {
         dexDisplay: dex.reduce(
             (map, mon) => {

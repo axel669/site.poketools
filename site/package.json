@@ -27,7 +27,8 @@
   "imports": {
     "#lib/*": "./lib/*",
     "#state/*": "./src/state/*.js",
-    "#stats/*": "./src/stats/*.js"
+    "#stats/*": "./src/stats/*.js",
+    "#complib/*": "./src/comp/lib/*"
   },
   "dependencies": {
     "@axel669/array-sort": "^0.1.0",
